@@ -46,6 +46,14 @@
     "@types/node": "^26.0.1",
     "typescript": "^6.0.3"
   },
+  "peerDependencies": {
+    "openclaw": ">=2026.6.10"
+  },
+  "peerDependenciesMeta": {
+    "openclaw": {
+      "optional": true
+    }
+  },
   "openclaw": {
     "extensions": [
       "./dist/index.js"

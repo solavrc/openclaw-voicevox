@@ -367,7 +367,11 @@ export default definePluginEntry({
 
       resolveTalkOverrides({ params }) {
         const speakerId = resolveSpeakerId(resolveOverrideVoice(params), null);
-        return speakerId == null ? {} : { speakerId };
+        const speedScale = resolvePositiveNumber(params.speed, undefined);
+        return {
+          ...(speakerId == null ? {} : { speakerId }),
+          ...(speedScale === undefined ? {} : { speedScale }),
+        };
       },
 
       parseDirectiveToken({ key, value, policy, currentOverrides }) {
