@@ -1,0 +1,98 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      releases_created: ${{ steps.release.outputs.releases_created }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  publish-clawhub:
+    needs: release
+    if: needs.release.outputs.release_created == 'true' || needs.release.outputs.releases_created == 'true'
+    runs-on: ubuntu-latest
+    environment: clawhub-production
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm pack --dry-run --json
+      - name: Install ClawHub CLI
+        run: npm install -g clawhub@0.23.0
+      - name: Authenticate ClawHub
+        env:
+          CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
+        run: clawhub login --token "$CLAWHUB_TOKEN" --label "GitHub Actions release-please"
+      - name: Resolve release metadata
+        id: meta
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          commit="$(git rev-parse HEAD)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "commit=$commit" >> "$GITHUB_OUTPUT"
+      - name: Dry-run ClawHub publish
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+          COMMIT: ${{ steps.meta.outputs.commit }}
+        run: |
+          clawhub package publish "solavrc/openclaw-voicevox@$COMMIT" \
+            --family code-plugin \
+            --owner solavrc \
+            --name @solavrc/openclaw-voicevox \
+            --version "$VERSION" \
+            --source-repo solavrc/openclaw-voicevox \
+            --source-commit "$COMMIT" \
+            --dry-run \
+            --json > clawhub-dry-run.json
+          cat clawhub-dry-run.json
+      - name: Verify dry-run result
+        env:
+          EXPECTED_PACKAGE_NAME: "@solavrc/openclaw-voicevox"
+          EXPECTED_VERSION: ${{ steps.meta.outputs.version }}
+          EXPECTED_COMMIT: ${{ steps.meta.outputs.commit }}
+        run: node .tools-dist/scripts/assert-clawhub-publish-result.js clawhub-dry-run.json
+      - name: Publish to ClawHub
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+          COMMIT: ${{ steps.meta.outputs.commit }}
+        run: |
+          clawhub package publish "solavrc/openclaw-voicevox@$COMMIT" \
+            --family code-plugin \
+            --owner solavrc \
+            --name @solavrc/openclaw-voicevox \
+            --version "$VERSION" \
+            --source-repo solavrc/openclaw-voicevox \
+            --source-commit "$COMMIT" \
+            --json > clawhub-publish.json
+          cat clawhub-publish.json
+      - name: Verify publish result
+        env:
+          EXPECTED_PACKAGE_NAME: "@solavrc/openclaw-voicevox"
+          EXPECTED_VERSION: ${{ steps.meta.outputs.version }}
+          EXPECTED_COMMIT: ${{ steps.meta.outputs.commit }}
+        run: node .tools-dist/scripts/assert-clawhub-publish-result.js clawhub-publish.json

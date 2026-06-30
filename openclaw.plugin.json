@@ -1,0 +1,104 @@
+{
+  "id": "voicevox",
+  "name": "VOICEVOX",
+  "version": "1.0.0",
+  "description": "VOICEVOX text-to-speech provider — Japanese TTS via local VOICEVOX Engine",
+  "activation": {
+    "onStartup": true
+  },
+  "contracts": {
+    "speechProviders": [
+      "voicevox"
+    ]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "baseUrl": {
+        "type": "string",
+        "description": "VOICEVOX Engine base URL",
+        "default": "http://127.0.0.1:50021",
+        "minLength": 1
+      },
+      "defaultSpeakerVoice": {
+        "description": "Default VOICEVOX speaker/style alias or raw numeric style ID",
+        "default": "zundamon",
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": [
+              "zundamon",
+              "zundamon-normal",
+              "zundamon-ama",
+              "zundamon-tsuntsun",
+              "zundamon-sexy",
+              "zundamon-sasayaki",
+              "zundamon-hisohiso",
+              "zundamon-herohero",
+              "zundamon-namidame",
+              "metan",
+              "metan-normal",
+              "metan-ama",
+              "metan-tsuntsun",
+              "metan-sexy",
+              "metan-sasayaki",
+              "metan-hisohiso",
+              "tsumugi",
+              "hau",
+              "takehiro",
+              "himari",
+              "tobari",
+              "tobari-normal",
+              "yogatari-tobari",
+              "yogatari-tobari-normal",
+              "tobari-akarui",
+              "yogatari-tobari-akarui",
+              "tobari-kanashimi",
+              "yogatari-tobari-kanashimi",
+              "tobari-akire",
+              "yogatari-tobari-akire",
+              "mitama",
+              "mitama-normal",
+              "akatsuki-mitama",
+              "akatsuki-mitama-normal",
+              "mitama-ikari",
+              "akatsuki-mitama-ikari",
+              "mitama-kanashimi",
+              "akatsuki-mitama-kanashimi",
+              "mitama-sasayaki",
+              "akatsuki-mitama-sasayaki",
+              "yuka",
+              "yuka-tsubomi",
+              "satoishi-yuka",
+              "satoishi-yuka-tsubomi"
+            ]
+          },
+          {
+            "type": "string",
+            "pattern": "^[0-9]+$"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "enabled": {
+        "type": "boolean",
+        "description": "Whether the VOICEVOX provider is enabled",
+        "default": true
+      },
+      "timeoutMs": {
+        "type": "number",
+        "description": "VOICEVOX HTTP request timeout in milliseconds",
+        "default": 30000,
+        "minimum": 1
+      },
+      "speedScale": {
+        "type": "number",
+        "description": "Default VOICEVOX speed scale",
+        "exclusiveMinimum": 0
+      }
+    }
+  }
+}
