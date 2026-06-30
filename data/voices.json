@@ -1,0 +1,74 @@
+[
+  {
+    "speaker": "ずんだもん",
+    "styles": [
+      { "name": "ノーマル", "id": 3, "aliases": ["zundamon", "zundamon-normal"] },
+      { "name": "あまあま", "id": 1, "aliases": ["zundamon-ama"] },
+      { "name": "ツンツン", "id": 7, "aliases": ["zundamon-tsuntsun"] },
+      { "name": "セクシー", "id": 5, "aliases": ["zundamon-sexy"] },
+      { "name": "ささやき", "id": 22, "aliases": ["zundamon-sasayaki"] },
+      { "name": "ヒソヒソ", "id": 38, "aliases": ["zundamon-hisohiso"] },
+      { "name": "ヘロヘロ", "id": 75, "aliases": ["zundamon-herohero"] },
+      { "name": "なみだめ", "id": 76, "aliases": ["zundamon-namidame"] }
+    ]
+  },
+  {
+    "speaker": "四国めたん",
+    "styles": [
+      { "name": "ノーマル", "id": 2, "aliases": ["metan", "metan-normal"] },
+      { "name": "あまあま", "id": 0, "aliases": ["metan-ama"] },
+      { "name": "ツンツン", "id": 6, "aliases": ["metan-tsuntsun"] },
+      { "name": "セクシー", "id": 4, "aliases": ["metan-sexy"] },
+      { "name": "ささやき", "id": 36, "aliases": ["metan-sasayaki"] },
+      { "name": "ヒソヒソ", "id": 37, "aliases": ["metan-hisohiso"] }
+    ]
+  },
+  {
+    "speaker": "春日部つむぎ",
+    "styles": [
+      { "name": "ノーマル", "id": 8, "aliases": ["tsumugi"] }
+    ]
+  },
+  {
+    "speaker": "雨晴はう",
+    "styles": [
+      { "name": "ノーマル", "id": 10, "aliases": ["hau"] }
+    ]
+  },
+  {
+    "speaker": "玄野武宏",
+    "styles": [
+      { "name": "ノーマル", "id": 11, "aliases": ["takehiro"] }
+    ]
+  },
+  {
+    "speaker": "冥鳴ひまり",
+    "styles": [
+      { "name": "ノーマル", "id": 14, "aliases": ["himari"] }
+    ]
+  },
+  {
+    "speaker": "夜語トバリ",
+    "styles": [
+      { "name": "ノーマル", "id": 118, "aliases": ["tobari", "tobari-normal", "yogatari-tobari", "yogatari-tobari-normal"] },
+      { "name": "明るい", "id": 119, "aliases": ["tobari-akarui", "yogatari-tobari-akarui"] },
+      { "name": "哀しみ", "id": 120, "aliases": ["tobari-kanashimi", "yogatari-tobari-kanashimi"] },
+      { "name": "呆れ", "id": 121, "aliases": ["tobari-akire", "yogatari-tobari-akire"] }
+    ]
+  },
+  {
+    "speaker": "暁記ミタマ",
+    "styles": [
+      { "name": "ノーマル", "id": 122, "aliases": ["mitama", "mitama-normal", "akatsuki-mitama", "akatsuki-mitama-normal"] },
+      { "name": "怒り", "id": 123, "aliases": ["mitama-ikari", "akatsuki-mitama-ikari"] },
+      { "name": "哀しみ", "id": 124, "aliases": ["mitama-kanashimi", "akatsuki-mitama-kanashimi"] },
+      { "name": "ささやき", "id": 125, "aliases": ["mitama-sasayaki", "akatsuki-mitama-sasayaki"] }
+    ]
+  },
+  {
+    "speaker": "里石ユカ",
+    "styles": [
+      { "name": "つぼみ", "id": 126, "aliases": ["yuka", "yuka-tsubomi", "satoishi-yuka", "satoishi-yuka-tsubomi"] }
+    ]
+  }
+]

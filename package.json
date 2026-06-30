@@ -1,0 +1,67 @@
+{
+  "name": "@solavrc/openclaw-voicevox",
+  "version": "1.0.0",
+  "description": "VOICEVOX TTS speech provider plugin for OpenClaw",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "openclaw.plugin.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "build:tools": "tsc -p tsconfig.tools.json",
+    "check": "npm run build:tools && node .tools-dist/scripts/sync-voices.js --check && npm run build && node --check dist/index.js && node -e \"const fs=require('node:fs'); JSON.parse(fs.readFileSync('package.json','utf8')); JSON.parse(fs.readFileSync('openclaw.plugin.json','utf8'));\" && node --test .tools-dist/test/*.test.js",
+    "check:upstream": "npm run build:tools && node .tools-dist/scripts/check-upstream-voices.js",
+    "pack:dry-run": "npm run build && npm pack --dry-run",
+    "prepack": "npm run build",
+    "sync:voices": "npm run build:tools && node .tools-dist/scripts/sync-voices.js",
+    "sync:voices:check": "npm run build:tools && node .tools-dist/scripts/sync-voices.js --check",
+    "test": "npm run build && npm run build:tools && node --test .tools-dist/test/*.test.js"
+  },
+  "keywords": [
+    "openclaw",
+    "openclaw-plugin",
+    "clawhub",
+    "voicevox",
+    "tts",
+    "speech"
+  ],
+  "homepage": "https://github.com/solavrc/openclaw-voicevox#readme",
+  "bugs": {
+    "url": "https://github.com/solavrc/openclaw-voicevox/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/solavrc/openclaw-voicevox"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.1",
+    "typescript": "^6.0.3"
+  },
+  "openclaw": {
+    "extensions": [
+      "./dist/index.js"
+    ],
+    "compat": {
+      "pluginApi": ">=2026.3.28"
+    },
+    "build": {
+      "openclawVersion": "2026.6.10"
+    },
+    "install": {
+      "clawhubSpec": "clawhub:@solavrc/openclaw-voicevox",
+      "defaultChoice": "clawhub"
+    },
+    "release": {
+      "publishToClawHub": true
+    }
+  }
+}
