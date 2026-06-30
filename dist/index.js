@@ -237,7 +237,7 @@ async function voicevoxSynthesize(params) {
             });
             throw new Error(`VOICEVOX synthesis failed: ${synthRes.status} ${errorText}`);
         }
-        return readBodyBuffer(synthRes, {
+        return await readBodyBuffer(synthRes, {
             maxBytes: MAX_AUDIO_BYTES,
             label: "VOICEVOX synthesis response",
         });
