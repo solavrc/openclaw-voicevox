@@ -48,6 +48,8 @@ function resolveVoicevoxConfig(rawConfig, defaults) {
             raw.speaker_voice_id ??
             raw.voiceName ??
             raw.voice_name ??
+            raw.voiceId ??
+            raw.voice_id ??
             raw.defaultVoice ??
             raw.defaultVoiceId ??
             raw.defaultStyleId ??
@@ -82,8 +84,6 @@ function resolveOverrideVoice(overrides) {
         overrides.voice_name ??
         overrides.voiceId ??
         overrides.voice_id ??
-        overrides.modelId ??
-        overrides.model_id ??
         overrides.speaker ??
         overrides.voice);
 }
